@@ -1,14 +1,14 @@
-# Use an official lightweight Python image as the base image
+# Use an official lightweight Python image
 FROM python:3.9-slim
 
-# Set the working directory inside the container
+# Set working directory
 WORKDIR /app
 
-# Copy the application code into the container
+# Copy application files
 COPY . .
 
-# Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Check if requirements.txt exists before installing dependencies
+RUN if [ -f requirements.txt ]; then pip install --no-cache-dir -r requirements.txt; fi
 
-# Set the entrypoint for the Cloud Run Job
+# Run the application
 CMD ["python", "main.py"]
